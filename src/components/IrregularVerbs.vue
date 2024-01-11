@@ -1,9 +1,12 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+
 
 const irregularVerbsList = [
     { verb: 'cut', simple: 'cut', perfect: 'cut' },
     { verb: 'beat', simple: 'beat', perfect: 'beaten' },
+    { verb: 'steal', simple: 'stole', perfect:	'stolen'},
+    { verb: 'stick', simple: 'stuck', perfect:	'stuck'}
 ];
 
 const index = ref('');
@@ -12,6 +15,20 @@ const simple = ref('');
 const perfect = ref('');
 const algoA = ref('');
 const algoB = ref('');
+const all = ref([]);
+
+const porcentagem = computed(() => {
+    const totalIrregularVerbs = irregularVerbsList.length;
+    const listUntilNow = all.value.length;
+    const percent = listUntilNow === 0 ? 0 : (listUntilNow / totalIrregularVerbs) * 100;
+    if(percent === 100 || percent > 100){
+        all.value = [];
+    }
+    if (all.value.length === 0) {
+        porcentagem.value = '0.00';
+      }
+    return percent.toFixed(2); // Retornar a porcentagem com duas casas decimais
+})
 
 let positionChecked = [];
 let verbCorrection = [];
@@ -34,7 +51,7 @@ function getListLength() {
 function sortNumber() {
     let maxNumber = getListLength();
     let number = Math.floor(Math.random() * maxNumber);
-    if (maxNumber == positionChecked.length) 
+    if (maxNumber == positionChecked.length)
         positionChecked = [];
     while (positionChecked.indexOf(number) != -1) {
         number = Math.floor(Math.random() * maxNumber);
@@ -55,7 +72,8 @@ function correct(verb, simple, perfect) {
     cleanArrays();
     let item = irregularVerbsList[index.value]; // {verb: 'beat', simple: 'beat', perfect: 'beaten'}
     verbCorrection.push(item);
-    answer.push({verb, simple, perfect});
+    answer.push({ verb, simple, perfect });
+    all.value.push({ verb, simple, perfect });
 
     item.simple === simple ? this.algoA = 'green' : this.algoA = 'red';
     item.perfect === perfect ? this.algoB = 'green' : this.algoB = 'red';
@@ -68,26 +86,33 @@ function correct(verb, simple, perfect) {
 </script>
 
 <template>
-    <div class="input-user">
-        <input type="text" v-model="verb" readonly >
-        <input type="text" v-model="simple">
-        <input type="text" v-model="perfect">
-        <input type="button" @click="correct(verb, simple, perfect)" value="Check">
-    </div>
-    <div class="correct-answer" v-for="item in verbCorrection">
-        <span>Answer:</span>
-        <span type="text">{{ item.verb }}</span>
-        <span type="text">{{ item.simple }}</span>
-        <span type="text">{{ item.perfect }}</span>
-    </div>
-    <div class="client-answer" v-for="item in answer">
-        <span>Your answer:</span>
-        <span>{{ item.verb }}</span>
-        <span v-if="item.simple != ''" :class="algoA">{{ item.simple }}</span>
-        <span v-else> - </span>
-        <span v-if="item.perfect != ''" :class="algoB">{{ item.perfect }}</span>
-        <span v-else> - </span>
-    </div>
+    <main>
+        <div class="input-user" @keyup.enter="correct(verb, simple, perfect)">
+            <input type="text" v-model="verb" readonly>
+            <input type="text" v-model="simple">
+            <input type="text" v-model="perfect">
+            <input type="button" @click="correct(verb, simple, perfect)" value="Check">
+        </div>
+        <div class="answer_div">
+            <div class="correct-answer" v-for="item in verbCorrection">
+                <span>Answer:</span>
+                <span type="text">{{ item.verb }} </span>
+                <span type="text">{{ item.simple }}</span>
+                <span type="text">{{ item.perfect }}</span>
+            </div>
+            <div class="client-answer" v-for="item in answer">
+                <span>Your answer:</span>
+                <span>{{ item.verb }}</span>
+                <span v-if="item.simple != ''" :class="algoA">{{ item.simple }}</span>
+                <span v-else> - </span>
+                <span v-if="item.perfect != ''" :class="algoB">{{ item.perfect }}</span>
+                <span v-else> - </span>
+            </div>
+            <div class="percent">
+                <span>{{ porcentagem }}%</span>
+            </div>
+        </div>
+    </main>
 </template>
 
 
@@ -104,7 +129,7 @@ function correct(verb, simple, perfect) {
     width: 300px;
     border: 1px solid gray;
     border-radius: 20px;
-    margin: 40px 15px;
+    margin: 80px 15px;
     padding-left: 10px;
     font-size: 20px;
 }
@@ -117,12 +142,19 @@ function correct(verb, simple, perfect) {
     color: red;
 }
 
+main {
+    position: relative;
+    width: 80%;
+    height: calc(100vh - 40px);
+    left: 10%;
+    background-color: rgb(255, 250, 250);
+}
+
 .correct-answer {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: rgb(234, 234, 255);
 }
 
 .correct-answer span {
@@ -133,11 +165,11 @@ function correct(verb, simple, perfect) {
     margin: 10px 15px;
     font-size: 20px;
 }
+
 .client-answer {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: rgb(255, 231, 231);
 }
 
 .client-answer span {
@@ -147,6 +179,15 @@ function correct(verb, simple, perfect) {
     width: 300px;
     margin: 10px 15px;
     font-size: 20px;
+}
+
+.percent {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    padding: 40px;
+    font-size: 30px;
+    background-color: rgb(231, 231, 231);
 }
 
 @media only screen and (max-width: 600px) {
@@ -184,8 +225,9 @@ function correct(verb, simple, perfect) {
         align-items: center;
         width: 300px;
         margin: 4px 15px;
-        font-size: 18px;
+        font-size: 20px;
     }
+
     .client-answer {
         display: flex;
         flex-direction: column;
@@ -200,7 +242,7 @@ function correct(verb, simple, perfect) {
         align-items: center;
         width: 300px;
         margin: 4px 15px;
-        font-size: 18px;
+        font-size: 20px;
     }
 }
 </style>
