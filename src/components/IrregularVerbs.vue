@@ -1,34 +1,16 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-
-
-const irregularVerbsList = [
-    { verb: 'cut', simple: 'cut', perfect: 'cut' },
-    { verb: 'beat', simple: 'beat', perfect: 'beaten' },
-    { verb: 'steal', simple: 'stole', perfect:	'stolen'},
-    { verb: 'stick', simple: 'stuck', perfect:	'stuck'}
-];
+import irregularVerbsList from '../../public/irregularVerbsList';
 
 const index = ref('');
 const verb = ref('');
-const simple = ref('');
-const perfect = ref('');
-const algoA = ref('');
-const algoB = ref('');
-const all = ref([]);
-
-const porcentagem = computed(() => {
-    const totalIrregularVerbs = irregularVerbsList.length;
-    const listUntilNow = all.value.length;
-    const percent = listUntilNow === 0 ? 0 : (listUntilNow / totalIrregularVerbs) * 100;
-    if(percent === 100 || percent > 100){
-        all.value = [];
-    }
-    if (all.value.length === 0) {
-        porcentagem.value = '0.00';
-      }
-    return percent.toFixed(2); // Retornar a porcentagem com duas casas decimais
-})
+const simple_past = ref('');
+const past_perfect = ref('');
+const item_simple_class = ref('');
+const item_perfect_class = ref('');
+const verbs_selected = ref([]);
+const verbs_responded = ref([]);
+const verb_simple_input = ref(null);
 
 let positionChecked = [];
 let verbCorrection = [];
@@ -38,9 +20,29 @@ onMounted(() => {
     verbFromList();
 })
 
+const porcentagem = computed(() => {
+    const totalIrregularVerbs = irregularVerbsList.length;
+    const listUntilNow = verbs_selected.value.length;
+    const percent = listUntilNow === 0 ? 0 : (listUntilNow / totalIrregularVerbs) * 100;
+    if (percent === 100 || percent > 100) {
+        verbs_selected.value = [];
+        verbs_responded.value = [];
+    }
+    if (verbs_selected.value.length === 0) {
+        porcentagem.value = '0.00';
+    }
+    return percent.toFixed(2); // Retornar a porcentagem com duas casas decimais
+})
+
+const pontuacao = computed(() => {
+    return verbs_selected.value.length;
+})
+
 function cleanArrays() {
     verbCorrection = [];
     answer = [];
+    simple_past.value = '';
+    past_perfect.value = '';
 }
 
 function getListLength() {
@@ -62,62 +64,117 @@ function sortNumber() {
 
 function verbFromList() {
     let listIndex = sortNumber();
-    let verbFromList = irregularVerbsList[listIndex];
-    verb.value = verbFromList.verb;
-    index.value = irregularVerbsList.indexOf(verbFromList);
-    return verbFromList; // {verb: 'beat', simple: 'beat', perfect: 'beaten'}
+    const { verb: verbValue, simple_past: simplePastValue, past_perfect: pastPerfectValue } = irregularVerbsList[listIndex];
+    verb.value = verbValue;
+    index.value = listIndex;
+    return { verb: verbValue, simple_past: simplePastValue, past_perfect: pastPerfectValue };
 }
 
-function correct(verb, simple, perfect) {
+function convertToLowerCase(verb, simple_past, past_perfect) {
+    let converted = {
+        verb: String(verb).toLowerCase(),
+        simple_past: String(simple_past).toLowerCase(),
+        past_perfect: String(past_perfect).toLowerCase()
+    };
+    return converted;
+}
+
+function changeClass(simple_past, past_perfect, converted_simple_past, converted_past_perfect) {
+    item_simple_class.value = simple_past === converted_simple_past ? 'green' : 'red';
+    item_perfect_class.value = past_perfect === converted_past_perfect ? 'green' : 'red';
+}
+
+function correct(verb, simple_past, past_perfect) {
     cleanArrays();
-    let item = irregularVerbsList[index.value]; // {verb: 'beat', simple: 'beat', perfect: 'beaten'}
+    let item = irregularVerbsList[index.value]; // {verb: 'beat', simple_past: 'beat', past_perfect: 'beaten'}
+    let convertedToLower = convertToLowerCase(verb, simple_past, past_perfect);
+
     verbCorrection.push(item);
-    answer.push({ verb, simple, perfect });
-    all.value.push({ verb, simple, perfect });
+    verbs_responded.value.push(item);
+    answer.push(convertedToLower);
+    verbs_selected.value.push(convertedToLower);
 
-    item.simple === simple ? this.algoA = 'green' : this.algoA = 'red';
-    item.perfect === perfect ? this.algoB = 'green' : this.algoB = 'red';
-
+    changeClass(item.simple_past, item.past_perfect, convertedToLower.simple_past, convertedToLower.past_perfect);
     verbFromList();
-    this.simple = '';
-    this.perfect = '';
+    verb_simple_input.value.focus();
 }
+
 
 </script>
 
 <template>
     <main>
-        <div class="input-user" @keyup.enter="correct(verb, simple, perfect)">
+        <div class="title_div">
+            <h1>IRREGULAR VERBS EXERCISES</h1>
+            <span>Write, press tab, write, press enter, start again...</span>
+        </div>
+        <div class="input-user" @keyup.enter="correct(verb, simple_past, past_perfect)">
             <input type="text" v-model="verb" readonly>
-            <input type="text" v-model="simple">
-            <input type="text" v-model="perfect">
-            <input type="button" @click="correct(verb, simple, perfect)" value="Check">
+            <input type="text" v-model.trim="simple_past" autofocus ref="verb_simple_input">
+            <input type="text" v-model.trim="past_perfect">
+            <input type="button" @click="correct(verb, simple_past, past_perfect)" value="Check">
         </div>
         <div class="answer_div">
             <div class="correct-answer" v-for="item in verbCorrection">
                 <span>Answer:</span>
                 <span type="text">{{ item.verb }} </span>
-                <span type="text">{{ item.simple }}</span>
-                <span type="text">{{ item.perfect }}</span>
+                <span type="text">{{ item.simple_past }}</span>
+                <span type="text">{{ item.past_perfect }}</span>
             </div>
             <div class="client-answer" v-for="item in answer">
                 <span>Your answer:</span>
                 <span>{{ item.verb }}</span>
-                <span v-if="item.simple != ''" :class="algoA">{{ item.simple }}</span>
+                <span v-if="item.simple_past != ''" :class="item_simple_class">{{ item.simple_past }}</span>
                 <span v-else> - </span>
-                <span v-if="item.perfect != ''" :class="algoB">{{ item.perfect }}</span>
+                <span v-if="item.past_perfect != ''" :class="item_perfect_class">{{ item.past_perfect }}</span>
                 <span v-else> - </span>
             </div>
             <div class="percent">
-                <span>{{ porcentagem }}%</span>
+                <div>
+                    <span>{{ porcentagem }}%</span>
+                </div>
+                <div>
+                    <span>{{ pontuacao }} / {{ irregularVerbsList.length }}</span>
+                </div>
+            </div>
+            <div class="listRespondedItens">
+                <table v-if="verbs_selected.length">
+                    <caption>Your Answer</caption>
+                    <tr v-for="item in verbs_selected">
+                        <td>{{ item.verb }}</td>
+                        <td>{{ item.simple_past }}</td>
+                        <td>{{ item.past_perfect }}</td>
+                    </tr>
+                </table>
+                <table v-if="verbs_responded.length">
+                    <caption>Correct Answer</caption>
+                    <tr v-for="item in verbs_responded">
+                        <td>{{ item.verb }}</td>
+                        <td>{{ item.simple_past }}</td>
+                        <td>{{ item.past_perfect }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </main>
 </template>
 
 
-
 <style scoped>
+.title_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.title_div span {
+    color: gray;
+    font-size: 18px;
+    margin: 20px;
+}
+
 .input-user {
     display: flex;
     flex-direction: row;
@@ -145,7 +202,8 @@ function correct(verb, simple, perfect) {
 main {
     position: relative;
     width: 80%;
-    height: calc(100vh - 40px);
+    min-height: calc(100vh - 40px);
+    height: 100%;
     left: 10%;
     background-color: rgb(255, 250, 250);
 }
@@ -183,14 +241,47 @@ main {
 
 .percent {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     margin-top: 50px;
-    padding: 40px;
+    padding: 30px;
     font-size: 30px;
     background-color: rgb(231, 231, 231);
 }
 
-@media only screen and (max-width: 600px) {
+.percent div {
+    text-align: center; /* Center the text horizontally */
+}
+
+.listRespondedItens {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.listRespondedItens table {
+    padding: 30px;
+    font-size: 22px;
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+.listRespondedItens table caption {
+    padding: 14px;
+    font-size: 24px;
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+.listRespondedItens table tr td {
+    padding: 6px 30px;
+    border-bottom: 1px solid gray;
+}
+
+
+@media only screen and (max-width: 960px) {
     .input-user {
         flex-direction: column;
         align-items: center;
@@ -233,7 +324,7 @@ main {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: rgb(255, 231, 231);
+        background-color: none;
     }
 
     .client-answer span {
@@ -244,5 +335,32 @@ main {
         margin: 4px 15px;
         font-size: 20px;
     }
-}
-</style>
+
+    .listRespondedItens {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .listRespondedItens table {
+        padding: 30px;
+        margin-top: 10px;
+        font-size: 18px;
+        border: 1px solid gray;
+        border-collapse: collapse;
+    }
+
+    .listRespondedItens table caption {
+        padding: 14px;
+        font-size: 20px;
+        border: 1px solid gray;
+        border-collapse: collapse;
+    }
+
+    .listRespondedItens table tr td {
+        padding: 6px 30px;
+        border-bottom: 1px solid gray;
+    }
+}</style>
