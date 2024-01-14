@@ -1,6 +1,5 @@
 <script setup>
 import HelloWorld from './components/Header.vue'
-import IrregularVerbs from './components/IrregularVerbs.vue';
 </script>
 
 <template>
@@ -9,7 +8,7 @@ import IrregularVerbs from './components/IrregularVerbs.vue';
   </header>
 
   <main>
-    <IrregularVerbs />
+    <router-view></router-view>
   </main>
 </template>
 

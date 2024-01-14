@@ -15,16 +15,26 @@ const toggleMobileMenu = () => {
     <button @click="toggleMobileMenu" class="mobile-menu-toggle">&#9776;</button>
 
     <ul :class="{ 'mobile-menu-open' : isMobileMenuOpen }">
-      <li><a>Irregular Verbs</a></li>
-      <li><a>Verbs tenses</a></li>
-      <li><a>Numbers</a></li>
-      <li><a>Time</a></li>
+      <li><router-link to="/">Irregular Verbs</router-link></li>
+      <li><router-link to="/time">Time</router-link></li>
+      <li><router-link to="/numbers">Numbers</router-link></li>
+      <li><router-link to="/others">Others</router-link></li>
     </ul>
   </header>
 
 </template>
 
 <style scoped>
+  a {
+    padding: 6px 10px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+  a:hover, a:active, a.router-link-exact-active {
+    color: rgb(185, 141, 59);
+  }
+
   header {
     width: 100%;
   }
