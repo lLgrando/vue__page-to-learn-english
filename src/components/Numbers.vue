@@ -1,18 +1,11 @@
 <script setup>
-import { onMounted, ref, computed, watch } from 'vue';
-
-const numbersList = [
-    {number: 0, extenso_number: "zero"},
-    {number: 1, extenso_number: "one"},
-    {number: 2, extenso_number: "two"},
-    {number: 3, extenso_number: "three"},
-    {number: 4, extenso_number: "four"},
-    {number: 5, extenso_number: "five"},
-]
+import { onMounted, ref, watch } from 'vue';
+import numbersList from '../../public/numbersList';
 
 const number = ref();
 const numberWrited = ref('');
 const selectedNumberIndex = ref();
+let itemsCompleted = ref();
 
 let numberUsed = [];
 
@@ -20,6 +13,10 @@ onMounted(() => {
     let getNumber = getSomeNumber();
     number.value = getNumber;
 })
+
+watch(number, () => {
+    itemsCompleted = numberUsed.length;
+});
 
 function numbersLength() {
     let arrayLenght = numbersList.length;
@@ -36,15 +33,12 @@ function getSomeIndex() {
 function checkIfnumberUsedIsFull() {
     let numberUsedLenght = numberUsed.length;
     let numbersListLength = numbersLength();
-    if(numberUsedLenght >= numbersListLength){
-        numberUsed = [];
-    }
+    numberUsedLenght >= numbersListLength ? numberUsed = [] : null;
 }
 
 function checkIndexIsValid() {
     checkIfnumberUsedIsFull();
     let numberIndex = getSomeIndex();
-    checkIfnumberUsedIsFull();
     while (numberUsed.some(obj => obj.number === numberIndex)) {
         numberIndex = getSomeIndex();
     }
@@ -57,28 +51,24 @@ function getSomeNumber() {
     return getNumber;
 }
 
-function setRecordArray(number, numberWrited) {
+function setRecordArray(number, numberWrited, correct) {
     let getNumber = number;
     let getNumberWrited = numberWrited;
     numberUsed.push({
         number: numbersList[getNumber].number, 
         extenso_number: numbersList[getNumber].extenso_number, 
-        number_writed: getNumberWrited
+        number_writed: getNumberWrited,
+        corrected: correct
     });
 }
 
 function correction() {
     let getNumberExtenso = numbersList[selectedNumberIndex.value];
-    if(getNumberExtenso.extenso_number == numberWrited.value) {
-        console.log("correto");
-    } else {
-        console.log("errado")
-    }
-    setRecordArray(selectedNumberIndex.value, numberWrited.value);
+    let correct = getNumberExtenso.extenso_number == numberWrited.value;
+    setRecordArray(selectedNumberIndex.value, numberWrited.value, correct);
     getSomeNumber();
     numberWrited.value = '';
 }
-
 </script>
 
 <template>
@@ -89,6 +79,10 @@ function correction() {
         <div class="div_inputs" @keyup.enter="correction(numberWrited)">
             <input type="text" v-model="numberWrited" autofocus>
             <input type="submit" hidden>
+            <div>
+                <span>{{ itemsCompleted }} / {{ numbersList.length }}</span>
+            </div>
+            <v-progress-linear v-model="itemsCompleted" :max="numbersList.length"></v-progress-linear>
             <div v-if="numberUsed.length == 0">
                 <span>Write the number and press enter!</span>
                 <span>For example: one hundred seventy two...</span>
@@ -105,7 +99,7 @@ function correction() {
                 <tr v-for="item in numberUsed">
                     <td>{{ item.number }}</td>
                     <td>{{ item.extenso_number }}</td>
-                    <td>{{ item.number_writed }}</td>
+                    <td :class="[item.corrected ? 'green' : 'red']">{{ item.number_writed }} </td>
                 </tr>
             </table>
         </div>
@@ -113,6 +107,14 @@ function correction() {
 </template>
 
 <style scoped>
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
 
 .main_div {
     display: flex;
@@ -138,6 +140,8 @@ function correction() {
     height: 50px;
     width: 500px;
     font-size: 28px;
+    border: 2px solid gray;
+    border-radius: 18px;
 }
 
 .div_inputs input[type='text']::placeholder {
