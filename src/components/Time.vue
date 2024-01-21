@@ -1,7 +1,56 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
+import timeList from '../../public/timesList';
 
 
+let time_input = ref(''); // guarda o input do usuário
+let time_in_use = ref([]); // guarda qual obj. de time está sendo utilizado nesse momento
+
+let times_record = []; // um array para guardar os obj. de times já utilizados, contendo a resposta do user junto
+
+
+onMounted(() => {
+    getItemFromTimeList();
+})
+
+function cleanArray(){
+    if(times_record.length >= timeList.length){
+        times_record = [];
+    }
+}
+
+function sortNumber() {
+    let maxNumber = timeList.length;
+    return Math.floor(Math.random() * (maxNumber - 0) + 0); // algum número de 0 a array.length
+}
+
+function checkNumber() {
+    cleanArray();
+    let indexNumber = sortNumber();
+    while(times_record.some(obj => obj.number == timeList[indexNumber].number)){
+        indexNumber = sortNumber();
+    }
+    return indexNumber;
+}
+
+function getItemFromTimeList() {
+    let index = checkNumber();   // 2
+    let getItemInList = timeList[index];   // {number: '1:30', write: 'a half to two'}
+    time_in_use.value = getItemInList;
+    return getItemInList;
+}
+
+function correction() {
+    let userInput = time_input.value;   // pega um input do usuário
+    times_record.push({
+        number: time_in_use.value.number, 
+        write: time_in_use.value.write, 
+        user_write: userInput,
+        answer: time_in_use.value.write === userInput ? true : false
+    });
+    time_input.value = '';
+    getItemFromTimeList();
+}
 
 
 </script>
@@ -13,15 +62,39 @@ import { onMounted, ref, watch } from 'vue';
         </div>
         <div class="relogio">
             <div class="horario">
-                <span class="hora">12:30</span>
+                <span class="hora">{{ time_in_use.number }}</span>
             </div>
         </div>
-        <input type="text" name="time">
+        <div @keyup.enter="correction">
+            <input type="text" name="time" v-model="time_input">
+        </div>
+        <div>
+            
+            <table>
+                <caption>Record</caption>
+                <tr>
+                    <th colspan="2">Answer</th>
+                    <th>Your Answer</th>
+                </tr>
+                <tr v-for="item in times_record">
+                    <td>{{ item.number }} </td>
+                    <td>{{ item.write }} </td>
+                    <td :class="[item.answer ? 'green' : 'red']">{{ item.user_write }}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </template>
 
 <style scoped>
 
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
 .div_central {
     display: flex;
     flex-direction: column;
@@ -67,4 +140,20 @@ input {
     margin: 30px 0px;
     border: 1px solid gray;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+table tr td {
+    min-width: 400px;
+    padding: 10px 20px 10px 20px;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+table tr td:first-child {
+    min-width: 100px;
+}
+
+
 </style>

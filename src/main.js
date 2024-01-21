@@ -14,12 +14,14 @@ const vuetify = createVuetify({
   directives,
 })
 
+import Home from './components/Home.vue';
 import Numbers from './components/Numbers.vue';
 import IrregularVerbs from './components/IrregularVerbs.vue';
 import Time from './components/Time.vue';
 
 const routes = [
-    { path: '/', component: IrregularVerbs },
+    { path: '/', component: Home },
+    { path: '/irregularverbs', component: IrregularVerbs },
     { path: '/numbers', component: Numbers },
     { path: '/time', component: Time },
 ];
