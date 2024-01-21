@@ -16,10 +16,12 @@ const vuetify = createVuetify({
 
 import Numbers from './components/Numbers.vue';
 import IrregularVerbs from './components/IrregularVerbs.vue';
+import Time from './components/Time.vue';
 
 const routes = [
     { path: '/', component: IrregularVerbs },
     { path: '/numbers', component: Numbers },
+    { path: '/time', component: Time },
 ];
 
 const router = createRouter({

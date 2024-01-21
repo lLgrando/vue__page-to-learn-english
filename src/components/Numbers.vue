@@ -5,6 +5,7 @@ import numbersList from '../../public/numbersList';
 const number = ref();
 const numberWrited = ref('');
 const selectedNumberIndex = ref();
+const range_value = ref([0, (numbersList.length - 1)]);
 let itemsCompleted = ref();
 
 let numberUsed = [];
@@ -18,51 +19,54 @@ watch(number, () => {
     itemsCompleted = numberUsed.length;
 });
 
-function numbersLength() {
-    let arrayLenght = numbersList.length;
-    return arrayLenght;
-}
+watch(range_value, () => {
+    setTimeout(() => {
+        getSomeNumber();
+    }, 1000)
+})
 
 function getSomeIndex() {
-    let arrayLength = numbersLength();
-    let numberIndex = Math.floor(Math.random() * arrayLength);
+    let numberIndex = Math.floor(Math.random() * (range_value.value[1] - range_value.value[0] + 1)) + range_value.value[0];
     selectedNumberIndex.value = numberIndex;
     return numberIndex;
 }
 
 function checkIfnumberUsedIsFull() {
     let numberUsedLenght = numberUsed.length;
-    let numbersListLength = numbersLength();
-    numberUsedLenght >= numbersListLength ? numberUsed = [] : null;
+    numberUsedLenght == ((range_value.value[1] - range_value.value[0]) + 1) ? numberUsed = [] : null;
 }
 
 function checkIndexIsValid() {
-    checkIfnumberUsedIsFull();
     let numberIndex = getSomeIndex();
-    while (numberUsed.some(obj => obj.number === numberIndex)) {
+    checkIfnumberUsedIsFull();
+    while (numberUsed.some(obj => obj.number == numberIndex)) {
         numberIndex = getSomeIndex();
     }
     return numberIndex;
 }
 
 function getSomeNumber() {
+    checkIfnumberUsedIsFull()
     let getNumber = checkIndexIsValid();
     number.value = getNumber;
     return getNumber;
 }
 
 function setRecordArray(number, numberWrited, correct) {
+    checkIfnumberUsedIsFull()
     let getNumber = number;
     let getNumberWrited = numberWrited;
-    numberUsed.push({
-        number: numbersList[getNumber].number, 
-        extenso_number: numbersList[getNumber].extenso_number, 
+    let newItem = {
+        number: numbersList[getNumber].number,
+        extenso_number: numbersList[getNumber].extenso_number,
         number_writed: getNumberWrited,
         corrected: correct
-    });
+    }
+    numberUsed.push(newItem);
 }
 
 function correction() {
+    checkIfnumberUsedIsFull()
     let getNumberExtenso = numbersList[selectedNumberIndex.value];
     let correct = getNumberExtenso.extenso_number == numberWrited.value;
     setRecordArray(selectedNumberIndex.value, numberWrited.value, correct);
@@ -74,13 +78,16 @@ function correction() {
 <template>
     <div class="main_div">
         <div class="div_number">
+            <span>Select the numbers range:</span>
+            <v-range-slider v-model="range_value" step="1" thumb-label="always" :min="0" :max="numbersList.length - 1"
+                color="indigo-lighten-4" style="width: 300px; margin-top: 40px;"></v-range-slider>
             <span class="span_number">{{ number }}</span>
         </div>
         <div class="div_inputs" @keyup.enter="correction(numberWrited)">
-            <input type="text" v-model="numberWrited" autofocus>
+            <input type="text" v-model="numberWrited" autofocus spellcheck="false">
             <input type="submit" hidden>
             <div>
-                <span>{{ itemsCompleted }} / {{ numbersList.length }}</span>
+                <span>{{ itemsCompleted }} / {{ range_value[1] - range_value[0] + 1 }}</span>
             </div>
             <v-progress-linear v-model="itemsCompleted" :max="numbersList.length"></v-progress-linear>
             <div v-if="numberUsed.length == 0">
@@ -107,7 +114,6 @@ function correction() {
 </template>
 
 <style scoped>
-
 .green {
     color: green;
 }
@@ -121,9 +127,17 @@ function correction() {
     flex-direction: column;
     align-items: center;
 }
+
 .div_number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 40px;
-    font-size: 54px;
+    font-size: 20px;
+}
+
+.div_number .span_number {
+    font-size: 74px;
 }
 
 .div_inputs {
@@ -167,11 +181,10 @@ function correction() {
     border-collapse: collapse;
 }
 
-.numberWrited th, .numberWrited td {
+.numberWrited th,
+.numberWrited td {
     border: 1px solid rgb(207, 207, 207);
     padding: 4px;
     min-width: 180px;
 }
-
-
 </style>
