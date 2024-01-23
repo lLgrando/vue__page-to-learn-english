@@ -7,17 +7,18 @@ const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
 
+
 </script>
 
 <template>
 
   <header>
-    <button @click="toggleMobileMenu" class="mobile-menu-toggle">&#9776;</button>
-
     <ul :class="{ 'mobile-menu-open' : isMobileMenuOpen }">
-      <li><router-link to="/">Irregular Verbs</router-link></li>
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/irregularverbs">Irregular Verbs</router-link></li>
       <li><router-link to="/time">Time</router-link></li>
       <li><router-link to="/numbers">Numbers</router-link></li>
+      <li><router-link to="/atinon">At In On</router-link></li>
       <li><router-link to="/others">Others</router-link></li>
     </ul>
   </header>

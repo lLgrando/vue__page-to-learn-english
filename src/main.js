@@ -18,18 +18,21 @@ import Home from './components/Home.vue';
 import Numbers from './components/Numbers.vue';
 import IrregularVerbs from './components/IrregularVerbs.vue';
 import Time from './components/Time.vue';
+import AtInOn from './components/AtInOn.vue';
 
 const routes = [
     { path: '/', component: Home },
     { path: '/irregularverbs', component: IrregularVerbs },
     { path: '/numbers', component: Numbers },
     { path: '/time', component: Time },
+    { path: '/atinon', component: AtInOn },
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes, 
   })
+
 
 const app = createApp(App)
 

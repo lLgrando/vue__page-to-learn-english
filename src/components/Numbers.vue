@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, computed } from 'vue';
 import numbersList from '../../public/numbersList';
 
 const number = ref();
@@ -7,8 +7,7 @@ const numberWrited = ref('');
 const selectedNumberIndex = ref();
 const range_value = ref([0, (numbersList.length - 1)]);
 let itemsCompleted = ref();
-
-let numberUsed = [];
+let numberUsed = ref([]);
 
 onMounted(() => {
     let getNumber = getSomeNumber();
@@ -16,13 +15,18 @@ onMounted(() => {
 })
 
 watch(number, () => {
-    itemsCompleted = numberUsed.length;
+    itemsCompleted = numberUsed.value.length;
 });
 
 watch(range_value, () => {
     setTimeout(() => {
         getSomeNumber();
+        numberUsed.value = [];
     }, 1000)
+})
+
+const reverseArrayNumberUsed = computed(() => {
+    return numberUsed.value.slice().reverse();
 })
 
 function getSomeIndex() {
@@ -32,14 +36,14 @@ function getSomeIndex() {
 }
 
 function checkIfnumberUsedIsFull() {
-    let numberUsedLenght = numberUsed.length;
-    numberUsedLenght == ((range_value.value[1] - range_value.value[0]) + 1) ? numberUsed = [] : null;
+    let numberUsedLenght = numberUsed.value.length;
+    numberUsedLenght == ((range_value.value[1] - range_value.value[0]) + 1) ? numberUsed.value = [] : null;
 }
 
 function checkIndexIsValid() {
     let numberIndex = getSomeIndex();
     checkIfnumberUsedIsFull();
-    while (numberUsed.some(obj => obj.number == numberIndex)) {
+    while (numberUsed.value.some(obj => obj.number == numberIndex)) {
         numberIndex = getSomeIndex();
     }
     return numberIndex;
@@ -62,7 +66,7 @@ function setRecordArray(number, numberWrited, correct) {
         number_writed: getNumberWrited,
         corrected: correct
     }
-    numberUsed.push(newItem);
+    numberUsed.value.push(newItem);
 }
 
 function correction() {
@@ -89,7 +93,6 @@ function correction() {
             <div>
                 <span>{{ itemsCompleted }} / {{ range_value[1] - range_value[0] + 1 }}</span>
             </div>
-            <v-progress-linear v-model="itemsCompleted" :max="numbersList.length"></v-progress-linear>
             <div v-if="numberUsed.length == 0">
                 <span>Write the number and press enter!</span>
                 <span>For example: one hundred seventy two...</span>
@@ -103,7 +106,7 @@ function correction() {
                     <th>Number Writed</th>
                     <th>Answer</th>
                 </tr>
-                <tr v-for="item in numberUsed">
+                <tr v-for="item in reverseArrayNumberUsed">
                     <td>{{ item.number }}</td>
                     <td>{{ item.extenso_number }}</td>
                     <td :class="[item.corrected ? 'green' : 'red']">{{ item.number_writed }} </td>

@@ -205,7 +205,6 @@ main {
     min-height: calc(100vh - 40px);
     height: 100%;
     left: 10%;
-    background-color: rgb(255, 250, 250);
 }
 
 .correct-answer {

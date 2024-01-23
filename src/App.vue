@@ -6,7 +6,6 @@ import HelloWorld from './components/Header.vue'
   <header>
     <HelloWorld></HelloWorld>
   </header>
-
   <main>
     <router-view></router-view>
   </main>

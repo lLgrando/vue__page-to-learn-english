@@ -1,21 +1,22 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import timeList from '../../public/timesList';
 
-
-let time_input = ref(''); // guarda o input do usuário
-let time_in_use = ref([]); // guarda qual obj. de time está sendo utilizado nesse momento
-
-let times_record = []; // um array para guardar os obj. de times já utilizados, contendo a resposta do user junto
-
+let time_input = ref('');   // guarda o input do usuário
+let time_in_use = ref([]);   // guarda qual obj. de time está sendo utilizado nesse momento
+let times_record = ref([]);   // um array para guardar os obj. de times já utilizados, contendo a resposta do user junto
 
 onMounted(() => {
     getItemFromTimeList();
 })
 
+let reverseArray = computed(() => {
+    return times_record.value.slice().reverse();
+})
+
 function cleanArray(){
     if(times_record.length >= timeList.length){
-        times_record = [];
+        times_record.value = [];
     }
 }
 
@@ -27,7 +28,7 @@ function sortNumber() {
 function checkNumber() {
     cleanArray();
     let indexNumber = sortNumber();
-    while(times_record.some(obj => obj.number == timeList[indexNumber].number)){
+    while(times_record.value.some(obj => obj.number == timeList[indexNumber].number)){
         indexNumber = sortNumber();
     }
     return indexNumber;
@@ -42,7 +43,7 @@ function getItemFromTimeList() {
 
 function correction() {
     let userInput = time_input.value;   // pega um input do usuário
-    times_record.push({
+    times_record.value.push({
         number: time_in_use.value.number, 
         write: time_in_use.value.write, 
         user_write: userInput,
@@ -76,7 +77,7 @@ function correction() {
                     <th colspan="2">Answer</th>
                     <th>Your Answer</th>
                 </tr>
-                <tr v-for="item in times_record">
+                <tr v-for="item in reverseArray">
                     <td>{{ item.number }} </td>
                     <td>{{ item.write }} </td>
                     <td :class="[item.answer ? 'green' : 'red']">{{ item.user_write }}</td>
