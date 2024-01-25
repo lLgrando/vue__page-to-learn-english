@@ -1,18 +1,21 @@
 <script setup>
-import HelloWorld from './components/Header.vue'
+import Sidebar from './components/Sidebar.vue'
 </script>
 
 <template>
-  <header>
-    <HelloWorld></HelloWorld>
-  </header>
-  <main>
-    <router-view></router-view>
-  </main>
+  <v-card>
+    <v-layout>
+      <v-navigation-drawer floating permanent color="indigo-accent-1">
+        <Sidebar></Sidebar>
+      </v-navigation-drawer>
+      <v-main style="min-height: 100vh">
+        <router-view></router-view>
+      </v-main>
+    </v-layout>
+  </v-card>
 </template>
 
 <style scoped>
-
 @media (min-width: 1024px) {
   header {
     display: flex;

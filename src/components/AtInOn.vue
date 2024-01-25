@@ -5,6 +5,13 @@ import { onMounted, ref, computed } from 'vue';
 const sentences = [
     {sentence: "I have a meeting _____ 9am.", answer: "at", isCorrect: ref(null) },
     {sentence: "Do you think we will go to Jupiter _____ the future?", answer: "in", isCorrect: ref(null) },
+    {sentence: "Her birthday is _____ the 20th of November.", answer: "on", isCorrect: ref(null) },
+    {sentence: "Where will you be _____ New Year's Day.", answer: "on", isCorrect: ref(null) },
+    {sentence: "The shop closes _____ midnight.", answer: "at", isCorrect: ref(null) },
+    {sentence: "There should be a lot of progress _____ the next century.", answer: "in", isCorrect: ref(null) },
+    {sentence: "Do you work _____ Mondays?", answer: "on", isCorrect: ref(null) },
+    {sentence: "Jane went home _____ lunchtime.", answer: "at", isCorrect: ref(null) },
+    {sentence: "In England, it often snows ____ December.", answer: "in", isCorrect: ref(null) },
 ]
 
 let answers = ref([]);
@@ -16,13 +23,15 @@ function correct(index) {
     sentences[index].isCorrect.value = userAnswer === correctAnswer ? 'green' : 'red';
 }
 
+
 </script>
 
 <template>
 
     <div>
+        <h1>Complete with At, In or On</h1>
         <ul v-for="(item, key) in sentences" :key="key">
-            <li :class="item.isCorrect.value">{{ item.sentence }} </li>
+            <li :class="item.isCorrect.value"> {{ item.sentence }} </li>
             <table>
                 <tr>
                     <th><label for="at">At</label></th>
@@ -52,8 +61,9 @@ function correct(index) {
 
 div {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: 80%;
     justify-content: space-around;
+    gap: 8px;
     padding: 40px;
 }
 
@@ -61,7 +71,7 @@ div ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid rgb(230, 230, 230);
+    border-bottom: 1px solid rgb(230, 230, 230);
 }
 
 div ul li {
