@@ -13,9 +13,4 @@
 </template>
 
 <style scoped>
-
-ul {
-  background-color: red;
-}
-
 </style>
