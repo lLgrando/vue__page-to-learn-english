@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <v-list density="compact" nav>
+  <v-list density="compact" nav class="h-full bg-indigo">
     <v-list-item value="home" to="/">Home</v-list-item>
     <v-list-item value="irregularverbs" to="/irregularverbs">Irregular Verbs</v-list-item>
     <v-list-item value="time" to="/time">Time</v-list-item>
