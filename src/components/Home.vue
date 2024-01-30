@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-indigo-100 h-full">
+    <div class="bg-indigo-100 h-screen">
         <div class="h-full flex flex-column justify-center items-center">
             <h1 class="font-sans text-5xl font-bold p-10 text-center text-clip text-wrap">Free exercices to improve your english!</h1>
             <div class="font-sans text-4xl text-center ">

@@ -23,6 +23,7 @@ import Numbers from './components/Numbers.vue';
 import IrregularVerbs from './components/IrregularVerbs.vue';
 import Time from './components/Time.vue';
 import AtInOn from './components/AtInOn.vue';
+import Others from './components/Others.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -30,6 +31,7 @@ const routes = [
     { path: '/numbers', component: Numbers },
     { path: '/time', component: Time },
     { path: '/atinon', component: AtInOn },
+    { path: '/others', component: Others },
 ];
 
 const router = createRouter({

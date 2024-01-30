@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import timeList from '../../public/timesList';
+import Title from './global_component/Title.vue'
 
 let time_input = ref('');   // guarda o input do usuário
 let time_in_use = ref([]);   // guarda qual obj. de time está sendo utilizado nesse momento
@@ -53,33 +54,30 @@ function correction() {
     getItemFromTimeList();
 }
 
-
 </script>
 
 <template>
-    <div class="h-full flex flex-column jusitify-center align-center">
-        <div>
-            <span class="text-2xl font-bold text-center">Could you tell me the time?</span>
-        </div>
-        <div class="bg-sky-50 w-80 p-4 m-8 border-slate-100 rounded">
-            <div class="flex flex-row justify-center align-center text-6xl tracking-wider">
+    <div class="h-screen flex flex-column jusitify-center align-center">
+        <Title title="Could you tell me the time?"></Title>
+        <div class="bg-sky-50 p-4 m-8 border-slate-100 rounded lg:p-7 w-96">
+            <div class="flex flex-row justify-center align-center text-6xl tracking-wider lg:text-7xl">
                 <span>{{ time_in_use.number }}</span>
             </div>
         </div>
-        <div class="w-80" @keyup.enter="correction">
+        <div class="w-96 lg:w-96" @keyup.enter="correction">
             <input class="w-full border border-slate-200 p-4 text-center text-2xl rounded" type="text" name="time" v-model="time_input">
         </div>
-        <div class="flex justify-center w-full" v-if="times_record.length">
-            <table>
-                <caption class="text-2xl p-1">Records</caption>
+        <div class="max-w-full pt-10" v-if="times_record.length">
+            <table class="justify-center items-center border-collapse text-center">
+                <caption class="text-2xl p-2">Records</caption>
                 <tr>
-                    <th colspan="2"  class="border border-slate-200 p-1">Answer</th>
-                    <th  class="border border-slate-200  p-1">Your Answer</th>
+                    <th class="p-2 border border-slate-200" colspan="2" >Answer</th>
+                    <th class="p-2 border border-slate-200">Your Answer</th>
                 </tr>
                 <tr v-for="item in reverseArray">
-                    <td  class="border border-slate-200 p-2 m-1"> {{ item.number }} </td>
-                    <td  class="border border-slate-200 p-2 m-1"> {{ item.write }} </td>
-                    <td  class="border border-slate-200 p-2 m-1"> {{ item.user_write }}</td>
+                    <td class="min-w-20 lg:min-w-20 border border-slate-200 p-2" > {{ item.number }} </td>
+                    <td class="min-w-36 lg:min-w-64 border border-slate-200 p-2" > {{ item.write }} </td>
+                    <td class="min-w-36 lg:min-w-64 border max-w-20 border-slate-200 p-2" > {{ item.user_write }}</td>
                 </tr>
             </table>
         </div>

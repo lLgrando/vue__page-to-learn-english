@@ -30,8 +30,8 @@ let drawer = ref(null);
       <v-navigation-drawer permanent>
         <Sidebar></Sidebar>
       </v-navigation-drawer>
-      <v-main style="height: 100vh">
-        <div class="pt-14">
+      <v-main style="min-height: 100vh">
+        <div>
           <router-view></router-view>
         </div>
       </v-main>
