@@ -14,7 +14,7 @@ let drawer = ref(null);
         <Sidebar></Sidebar>
       </v-navigation-drawer>
       <v-main style="min-height: 100vh">
-        <div class="absolute">
+        <div class="absolute w-full bg-indigo-100 p-2 border-b-2 border-indigo-200">
           <v-btn color="transparent" size="40px" @click.stop="drawer = !drawer">
             <span class="material-symbols-outlined">menu</span>
           </v-btn>
