@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import irregularVerbsList from '../../public/irregularVerbsList';
+import Title from './global_component/Title.vue';
 
 const index = ref('');
 const verb = ref('');
@@ -99,267 +100,82 @@ function correct(verb, simple_past, past_perfect) {
     verb_simple_input.value.focus();
 }
 
-
 </script>
 
 <template>
-    <main>
-        <div class="title_div">
-            <h1>IRREGULAR VERBS EXERCISES</h1>
-            <span>Write, press tab, write, press enter, start again...</span>
+    <Title title="Irregular Verbs" />
+
+    <div class="flex justify-center items-center pt-8 w-full text-3xl">
+        <div class="mx-10">
+            <span>{{ porcentagem }}%</span>
         </div>
-        <div class="input-user" @keyup.enter="correct(verb, simple_past, past_perfect)">
-            <input type="text" v-model="verb" readonly>
-            <input type="text" v-model.trim="simple_past" autofocus ref="verb_simple_input">
-            <input type="text" v-model.trim="past_perfect">
-            <input type="button" @click="correct(verb, simple_past, past_perfect)" value="Check">
+        <div class="mx-10">
+            <span>{{ pontuacao }} / {{ irregularVerbsList.length }}</span>
         </div>
-        <div class="answer_div">
-            <div class="correct-answer" v-for="item in verbCorrection">
-                <span>Answer:</span>
-                <span type="text">{{ item.verb }} </span>
-                <span type="text">{{ item.simple_past }}</span>
-                <span type="text">{{ item.past_perfect }}</span>
-            </div>
-            <div class="client-answer" v-for="item in answer">
-                <span>Your answer:</span>
-                <span>{{ item.verb }}</span>
-                <span v-if="item.simple_past != ''" :class="item_simple_class">{{ item.simple_past }}</span>
-                <span v-else> - </span>
-                <span v-if="item.past_perfect != ''" :class="item_perfect_class">{{ item.past_perfect }}</span>
-                <span v-else> - </span>
-            </div>
-            <div class="percent">
-                <div>
-                    <span>{{ porcentagem }}%</span>
-                </div>
-                <div>
-                    <span>{{ pontuacao }} / {{ irregularVerbsList.length }}</span>
-                </div>
-            </div>
-            <div class="listRespondedItens">
-                <table v-if="verbs_selected.length">
-                    <caption>Your Answer</caption>
-                    <tr v-for="item in verbs_selected">
-                        <td>{{ item.verb }}</td>
-                        <td>{{ item.simple_past }}</td>
-                        <td>{{ item.past_perfect }}</td>
-                    </tr>
-                </table>
-                <table v-if="verbs_responded.length">
-                    <caption>Correct Answer</caption>
-                    <tr v-for="item in verbs_responded">
-                        <td>{{ item.verb }}</td>
-                        <td>{{ item.simple_past }}</td>
-                        <td>{{ item.past_perfect }}</td>
-                    </tr>
-                </table>
-            </div>
+    </div>
+
+    <div @keyup.enter="correct(verb, simple_past, past_perfect)" class="py-10 flex flex-wrap justify-center items-center">
+        <input type="text" v-model="verb" readonly class="border border-slate-400 rounded p-4 m-2 text-2xl">
+        <input type="text" v-model.trim="simple_past" autofocus ref="verb_simple_input"
+            class="border border-slate-400 rounded p-4 m-2 text-2xl">
+        <input type="text" v-model.trim="past_perfect" class="border border-slate-400 rounded p-4 m-2 text-2xl">
+    </div>
+
+    <div class="border border-slate-300 m-2 flex flex-col justify-center items-center">
+
+        <div class="flex">
+            <table v-for="item in verbCorrection">
+                <tr>
+                    <th>Answer</th>
+                </tr>
+                <tr>
+                    <td>{{ item.verb }}</td>
+                </tr>
+                <tr>
+                    <td>{{ item.simple_past }}</td>
+                </tr>
+                <tr>
+                    <td>{{ item.past_perfect }}</td>
+                </tr>
+            </table>
+            <table v-for="item in answer">
+                <tr>
+                    <th>Your Answer</th>
+                </tr>
+                <tr>
+                    <td>{{ item.verb }}</td>
+                </tr>
+                <tr>
+                    <td>{{ item.simple_past || "-" }}</td>
+                </tr>
+                <tr>
+                    <td>{{ item.past_perfect || "-" }}</td>
+                </tr>
+            </table>
         </div>
-    </main>
+
+        <div class="grid grid-rows-1 grid-cols-2 justify-items-center items-center w-full p-6 grid-flow-row">
+            <table v-if="verbs_responded.length" class="border border-slate-300 text-xl w-1/2">
+                <caption>Correct Answer</caption>
+                <tr v-for="item in verbs_responded">
+                    <td class="border border-slate-300 p-2">{{ item.verb }}</td>
+                    <td class="border border-slate-300 p-2">{{ item.simple_past }}</td>
+                    <td class="border border-slate-300 p-2">{{ item.past_perfect }}</td>
+                </tr>
+            </table>
+
+            <table v-if="verbs_selected.length" class="border border-slate-300 text-xl w-1/2">
+                <caption>Your Answer</caption>
+                <tr v-for="item in verbs_selected">
+                    <td class="border border-slate-300 p-2">{{ item.verb }}</td>
+                    <td class="border border-slate-300 p-2">{{ item.simple_past }}</td>
+                    <td class="border border-slate-300 p-2">{{ item.past_perfect }}</td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
 </template>
 
-
-<style scoped>
-.title_div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.title_div span {
-    color: gray;
-    font-size: 18px;
-    margin: 20px;
-}
-
-.input-user {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.input-user input {
-    height: 50px;
-    width: 300px;
-    border: 1px solid gray;
-    border-radius: 20px;
-    margin: 80px 15px;
-    padding-left: 10px;
-    font-size: 20px;
-}
-
-.green {
-    color: rgb(110, 187, 110);
-}
-
-.red {
-    color: red;
-}
-
-main {
-    position: relative;
-    width: 80%;
-    min-height: calc(100vh - 40px);
-    height: 100%;
-    left: 10%;
-}
-
-.correct-answer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.correct-answer span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    margin: 10px 15px;
-    font-size: 20px;
-}
-
-.client-answer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.client-answer span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    margin: 10px 15px;
-    font-size: 20px;
-}
-
-.percent {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 50px;
-    padding: 30px;
-    font-size: 30px;
-    background-color: rgb(231, 231, 231);
-}
-
-.percent div {
-    text-align: center; /* Center the text horizontally */
-}
-
-.listRespondedItens {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.listRespondedItens table {
-    padding: 30px;
-    font-size: 22px;
-    border: 1px solid gray;
-    border-collapse: collapse;
-}
-
-.listRespondedItens table caption {
-    padding: 14px;
-    font-size: 24px;
-    border: 1px solid gray;
-    border-collapse: collapse;
-}
-
-.listRespondedItens table tr td {
-    padding: 6px 30px;
-    border-bottom: 1px solid gray;
-}
-
-
-@media only screen and (max-width: 960px) {
-    .input-user {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .input-user input {
-        height: 40px;
-        width: 260px;
-        margin: 10px 15px;
-    }
-
-    .input-user input[type='button'] {
-        height: 40px;
-        width: 100px;
-        padding: 0;
-        border: 1px solid gray;
-        border-radius: 20px;
-        font-size: 16px;
-    }
-
-    .correct-answer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(234, 234, 255);
-    }
-
-    .correct-answer span {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 300px;
-        margin: 4px 15px;
-        font-size: 20px;
-    }
-
-    .client-answer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: none;
-    }
-
-    .client-answer span {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 300px;
-        margin: 4px 15px;
-        font-size: 20px;
-    }
-
-    .listRespondedItens {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .listRespondedItens table {
-        padding: 30px;
-        margin-top: 10px;
-        font-size: 18px;
-        border: 1px solid gray;
-        border-collapse: collapse;
-    }
-
-    .listRespondedItens table caption {
-        padding: 14px;
-        font-size: 20px;
-        border: 1px solid gray;
-        border-collapse: collapse;
-    }
-
-    .listRespondedItens table tr td {
-        padding: 6px 30px;
-        border-bottom: 1px solid gray;
-    }
-}</style>
+<style></style>

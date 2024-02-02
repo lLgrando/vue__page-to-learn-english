@@ -1,12 +1,14 @@
 <script>
-
 </script>
 
 <template>
     <div class="bg-indigo-100 lg:h-screen">
-        <div class="h-full flex flex-column justify-center items-center">
+        <div class="h-full flex flex-column justify-center items-center pb-40">
             <div>
-                <h1 class="font-sans text-5xl font-bold p-10 text-center text-clip text-wrap">Free exercices to improve your english!</h1>
+                <img src="../../public/image/logo.svg" alt="" class="w-36 color-indigo-100">
+            </div>
+            <div>
+                <h1 class="font-sans text-5xl font-extrabold p-16 text-center text-clip text-wrap">Free exercices to improve your english!</h1>
             </div>
             <div class="font-sans text-4xl text-center ">
                 <ul class="flex justify-center flex-wrap gap-6 w-89">
