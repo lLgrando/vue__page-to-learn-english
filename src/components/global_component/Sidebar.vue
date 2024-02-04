@@ -2,9 +2,9 @@
 </script>
 
 <template>
-  <v-list density="compact" nav class="h-full bg-indigo">
+  <v-list density="compact" nav class="h-full bg-indigo w-60">
     <div class="flex justify-center items-center w-full">
-      <a href="/"><img src="../../public/image/logo.svg" alt="logo" class="w-20 p-2 m-4"></a>
+      <a href="/"><img src="../../../public/image/logo.svg" alt="logo" class="w-20 p-2 m-4"></a>
     </div>
     <v-list-item value="home" to="/">Home</v-list-item>
     <v-list-item value="irregularverbs" to="/irregularverbs">Irregular Verbs</v-list-item>

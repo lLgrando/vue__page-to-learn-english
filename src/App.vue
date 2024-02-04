@@ -1,54 +1,44 @@
 <script setup>
 import { ref } from 'vue';
-import Sidebar from './components/Sidebar.vue'
+import Sidebar from './components/global_component/Sidebar.vue'
 
 let drawer = ref(null);
-
 </script>
 
 <template>
   <v-card class="v-card_mobile">
     <v-layout>
       <v-navigation-drawer v-model="drawer" temporary>
-        <v-divider></v-divider>
         <Sidebar></Sidebar>
       </v-navigation-drawer>
-      <v-main style="min-height: 100vh">
-        <div class="absolute w-full bg-indigo-100 p-2 border-b-2 border-indigo-200">
-          <v-btn color="transparent" size="40px" @click.stop="drawer = !drawer">
-            <span class="material-symbols-outlined">menu</span>
-          </v-btn>
-        </div>
-        <div class="pt-14">
-          <router-view></router-view>
-        </div>
-      </v-main>
-    </v-layout>
-  </v-card>
-  <v-card class="v-card_browser">
-    <v-layout>
-      <v-navigation-drawer permanent>
-        <Sidebar></Sidebar>
-      </v-navigation-drawer>
-      <v-main style="min-height: 100vh">
-        <div>
-          <router-view></router-view>
-        </div>
+      <div>
+        <Sidebar class="browser_btn"></Sidebar>
+      </div>
+      <v-main class="h-full min-h-screen">
+        <v-btn color="transparent" border="true" @click.stop="drawer = !drawer" class="mobile_btn">
+          <span  class="material-symbols-outlined">menu</span>
+        </v-btn>
+        <router-view></router-view>
       </v-main>
     </v-layout>
   </v-card>
 </template>
 
 <style scoped>
+
+.mobile_btn {
+  position: fixed;
+}
+
 @media (min-width: 600px) {
-  .v-card_mobile {
+  .mobile_btn {
     display: none;
   }
 }
 
 @media (max-width: 600px) {
-  .v-card_browser {
+  .browser_btn {
     display: none;
   }
-}
+} 
 </style>

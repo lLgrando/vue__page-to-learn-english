@@ -9,6 +9,7 @@ let times_record = ref([]);   // um array para guardar os obj. de times já util
 
 onMounted(() => {
     getItemFromTimeList();
+    console.log(timeList);
 })
 
 let reverseArray = computed(() => {
@@ -59,7 +60,7 @@ function correction() {
 <template>
     <div class="h-screen flex flex-column jusitify-center align-center">
         <Title title="Could you tell me the time?"></Title>
-        <div class="bg-sky-50 p-4 m-8 border-slate-100 rounded lg:p-7 w-96">
+        <div class="p-4 m-8 lg:p-7 w-96">
             <div class="flex flex-row justify-center align-center text-6xl tracking-wider lg:text-7xl">
                 <span>{{ time_in_use.number }}</span>
             </div>

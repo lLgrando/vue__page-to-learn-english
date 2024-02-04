@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref, watch, computed } from 'vue';
 import numbersList from '../../public/numbersList';
+import Title from '../components/global_component/Title.vue'
 
 const number = ref();
 const numberWrited = ref('');
@@ -80,6 +81,7 @@ function correction() {
 </script>
 
 <template>
+    <Title title="Write the numbers"></Title>
     <div class="main_div">
         <div class="div_number">
             <span>Select the numbers range:</span>
@@ -87,9 +89,13 @@ function correction() {
                 color="indigo-lighten-4" style="width: 300px; margin-top: 40px;"></v-range-slider>
             <span class="span_number">{{ number }}</span>
         </div>
-        <div class="div_inputs" @keyup.enter="correction(numberWrited)">
-            <input type="text" v-model="numberWrited" autofocus spellcheck="false">
+
+        <div class="w-96 lg:w-96" @keyup.enter="correction">
+            <input class="w-full border border-slate-200 p-4 text-center text-2xl rounded" type="text" name="time" v-model="numberWrited" autofocus spellcheck="false">
             <input type="submit" hidden>
+        </div>
+
+        <div class="div_inputs">
             <div>
                 <span>{{ itemsCompleted }} / {{ range_value[1] - range_value[0] + 1 }}</span>
             </div>
