@@ -38,9 +38,9 @@ function clear() {
 
             <div>
                 <button @click="clear"
-                class="bg-indigo-100 py-2 px-6 text-2xl border rounded-lg hover:bg-indigo-200">Clear</button>
+                    class="bg-indigo-100 py-2 px-6 text-2xl border rounded-lg hover:bg-indigo-200">Clear</button>
             </div>
-        
+
             <ul v-for="(item, key) in sentences" :key="key"
                 class="w-full columns-2 flex justify-center items-center lg:px-28">
 
@@ -50,18 +50,18 @@ function clear() {
 
                 <div class="flex pl-2 py-4">
                     <div class="flex flex-col px-2 lg:text-xl">
-                        <label for="at">At</label>
-                        <input type="radio" id="at" name="preposition" value="at" v-model="answers[key]"
+                        <label :for="'at_' + key">At</label>
+                        <input type="radio" :id="'at_' + key" :name="'preposition_' + key" value="at" v-model="answers[key]"
                             @change="correct(key)">
                     </div>
                     <div class="flex flex-col px-2 lg:text-xl">
-                        <label for="in">In</label>
-                        <input type="radio" id="in" name="preposition" value="in" v-model="answers[key]"
+                        <label :for="'in_' + key">In</label>
+                        <input type="radio" :id="'in_' + key" :name="'preposition_' + key" value="in" v-model="answers[key]"
                             @change="correct(key)">
                     </div>
                     <div class="flex flex-col px-2 lg:text-xl">
-                        <label for="on">On</label>
-                        <input type="radio" id="on" name="preposition" value="on" v-model="answers[key]"
+                        <label :for="'on_' + key">On</label>
+                        <input type="radio" :id="'on_' + key" :name="'preposition_' + key" value="on" v-model="answers[key]"
                             @change="correct(key)">
                     </div>
                 </div>
@@ -77,5 +77,4 @@ function clear() {
 
 .red {
     color: red;
-}
-</style>
+}</style>

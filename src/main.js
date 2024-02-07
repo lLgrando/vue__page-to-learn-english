@@ -23,6 +23,7 @@ import Numbers from './components/Numbers.vue';
 import IrregularVerbs from './components/IrregularVerbs.vue';
 import Time from './components/Time.vue';
 import AtInOn from './components/AtInOn.vue';
+import Weekday from './components/Weekday.vue';
 import Others from './components/Others.vue';
 
 const routes = [
@@ -31,6 +32,7 @@ const routes = [
     { path: '/numbers', component: Numbers },
     { path: '/time', component: Time },
     { path: '/atinon', component: AtInOn },
+    { path: '/weekday', component: Weekday },
     { path: '/others', component: Others },
 ];
 
