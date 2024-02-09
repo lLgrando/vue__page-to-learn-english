@@ -178,4 +178,3 @@ function correct(verb, simple_past, past_perfect) {
     </div>
 </template>
 
-<style></style>

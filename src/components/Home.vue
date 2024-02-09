@@ -12,17 +12,17 @@
             </div>
             <div class="font-sans text-4xl text-center ">
                 <ul class="flex justify-center flex-wrap gap-6 w-89">
-                    <li class="min-w-80 sm:w-4 border border-indigo-600 rounded-xl p-16 bg-gradient-to-r from-indigo-400 to-blue-300">
+                    <li class="flex flex-col justify-center items-center min-w-80 sm:w-4 border border-indigo-600 rounded-xl p-16 bg-gradient-to-r from-indigo-400 to-blue-300">
                         <h4>Write</h4>
-                        <span class="material-symbols-outlined" style="font-size:68px;">keyboard</span>
+                        <span><img src="../../public/image/keyboard.svg" alt="keyboard icon" class="w-14 m-2"></span>
                     </li>
-                    <li class="min-w-80 border border-indigo-600 rounded-xl p-16 bg-gradient-to-t from-indigo-400 to-blue-300">
+                    <li class="flex flex-col justify-center items-center min-w-80 sm:w-4 border border-indigo-600 rounded-xl p-16 bg-gradient-to-r from-indigo-400 to-blue-300">
                         <h4>Check</h4>
-                        <span class="material-symbols-outlined" style="font-size:68px;">done</span>
+                        <span><img src="../../public/image/done.svg" alt="done icon" class="w-14 m-2"></span>
                     </li>
-                    <li class="min-w-80 border border-indigo-600 rounded-xl p-16 bg-gradient-to-l from-indigo-400 to-blue-300">
+                    <li class="flex flex-col justify-center items-center min-w-80 sm:w-4 border border-indigo-600 rounded-xl p-16 bg-gradient-to-r from-indigo-400 to-blue-300">
                         <h4>Repeat</h4>
-                        <span class="material-symbols-outlined" style="font-size:68px;">restart_alt</span>
+                        <span><img src="../../public/image/restart.svg" alt="restart icon" class="w-14 m-2"></span>
                     </li>
                 </ul>
             </div>
@@ -30,5 +30,3 @@
     </div>
 </template>
 
-<style>
-</style>

@@ -84,6 +84,3 @@ function correction() {
         </div>
     </div>
 </template>
-
-<style scoped>
-</style>

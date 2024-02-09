@@ -9,8 +9,8 @@ const questions = [
     { question: "What day of week will it be tomorrow?", numberTime: 1, userAnswer: null },
     { question: "What day of the week will it be in two days?", numberTime: 2, userAnswer: null },
     { question: "What day of the week will it be in three days?", numberTime: 3, userAnswer: null },
-    { question: "What day of the week will it be in four days?", numberTime: 1, userAnswer: null },
-    { question: "What day of the week will it be in five days?", numberTime: 1, userAnswer: null },
+    { question: "What day of the week will it be in four days?", numberTime: 4, userAnswer: null },
+    { question: "What day of the week will it be in five days?", numberTime: 5, userAnswer: null },
     { question: "What weekday was yesterday?", numberTime: -1, userAnswer: null },
 ]
 
@@ -48,4 +48,3 @@ function getWeekDayFromNumber(userAnswer, itemNumber) {
     </div>
 </template>
 
-<style></style>

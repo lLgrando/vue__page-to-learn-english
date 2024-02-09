@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import Sidebar from './components/global_component/Sidebar.vue'
+import Footer from './components/global_component/Footer.vue'
 
 let drawer = ref(null);
 </script>
@@ -21,6 +22,7 @@ let drawer = ref(null);
         <router-view></router-view>
       </v-main>
     </v-layout>
+    <Footer></Footer>
   </v-card>
 </template>
 

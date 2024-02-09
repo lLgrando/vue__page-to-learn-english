@@ -15,6 +15,3 @@
     <v-list-item value="others" to="/others">Others</v-list-item>
   </v-list>
 </template>
-
-<style scoped>
-</style>

@@ -8,6 +8,3 @@ import Title from './global_component/Title.vue'
     <Title title="title"></Title>
 
 </template>
-
-<style>
-</style>
