@@ -25,6 +25,7 @@ import Time from './components/Time.vue';
 import AtInOn from './components/AtInOn.vue';
 import Weekday from './components/Weekday.vue';
 import Others from './components/Others.vue';
+import Past from './components/Past.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -34,6 +35,7 @@ const routes = [
     { path: '/atinon', component: AtInOn },
     { path: '/weekday', component: Weekday },
     { path: '/others', component: Others },
+    { path: '/past', component: Past },
 ];
 
 const router = createRouter({

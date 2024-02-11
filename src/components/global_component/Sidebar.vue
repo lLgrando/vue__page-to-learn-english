@@ -12,6 +12,7 @@
     <v-list-item value="numbers" to="/numbers">Numbers</v-list-item>
     <v-list-item value="atinon" to="/atinon">At In On</v-list-item>
     <v-list-item value="weekday" to="/weekday">Weekday</v-list-item>
+    <v-list-item value="past" to="/past">Past</v-list-item>
     <v-list-item value="others" to="/others">Others</v-list-item>
   </v-list>
 </template>
