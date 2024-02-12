@@ -115,10 +115,10 @@ function correct(verb, simple_past, past_perfect) {
     </div>
 
     <div @keyup.enter="correct(verb, simple_past, past_perfect)" class="py-10 flex flex-wrap justify-center items-center">
-        <input type="text" v-model="verb" readonly class="border border-slate-400 rounded p-4 m-2 text-2xl">
+        <input type="text" v-model="verb" readonly class="border border-slate-400 rounded p-4 m-2 text-2xl w-56">
         <input type="text" v-model.trim="simple_past" autofocus ref="verb_simple_input"
-            class="border border-slate-400 rounded p-4 m-2 text-2xl">
-        <input type="text" v-model.trim="past_perfect" class="border border-slate-400 rounded p-4 m-2 text-2xl">
+            class="border border-slate-400 rounded p-4 m-2 text-2xl w-56">
+        <input type="text" v-model.trim="past_perfect" class="border border-slate-400 rounded p-4 m-2 text-2xl w-56">
     </div>
 
     <div class="border border-slate-300 m-2 flex flex-col justify-center items-center">

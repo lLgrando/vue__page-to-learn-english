@@ -43,7 +43,7 @@ function getWeekDayFromNumber(userAnswer, itemNumber) {
 
             <input type="text" v-model="answer[index]" :name="index"
                 @keyup.enter="getWeekDayFromNumber(answer[index], index)"
-                class="border border-slate-300 rounded mt-2 w-46 p-2 text-center text-xl">
+                class="border border-slate-300 rounded mt-2 w-56 p-2 text-center text-xl">
         </ul>
     </div>
 </template>

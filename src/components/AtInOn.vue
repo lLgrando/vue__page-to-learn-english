@@ -34,32 +34,23 @@ function clear() {
     <div>
         <Title title="Complete with AT, IN or ON" />
 
-        <div class="flex flex-col w-full justify-center items-center py-6 px-4">
-
-            <div>
-                <button @click="clear"
-                    class="bg-indigo-100 py-2 px-6 text-2xl border rounded-lg hover:bg-indigo-200">Clear</button>
-            </div>
-
-            <ul v-for="(item, key) in sentences" :key="key"
-                class="w-full columns-2 flex justify-center items-center lg:px-28">
-
-                <div class="w-full py-4 lg:text-xl">
-                    <li :class="item.isCorrect.value">{{ item.sentence }}</li>
+        <div>
+            <ul v-for="(item, key) in sentences" :key="key">
+                <div>
+                    <li>{{ item.sentence }}</li>
                 </div>
-
-                <div class="flex pl-2 py-4">
-                    <div class="flex flex-col px-2 lg:text-xl">
+                <div>
+                    <div>
                         <label :for="'at_' + key">At</label>
                         <input type="radio" :id="'at_' + key" :name="'preposition_' + key" value="at" v-model="answers[key]"
                             @change="correct(key)">
                     </div>
-                    <div class="flex flex-col px-2 lg:text-xl">
+                    <div>
                         <label :for="'in_' + key">In</label>
                         <input type="radio" :id="'in_' + key" :name="'preposition_' + key" value="in" v-model="answers[key]"
                             @change="correct(key)">
                     </div>
-                    <div class="flex flex-col px-2 lg:text-xl">
+                    <div>
                         <label :for="'on_' + key">On</label>
                         <input type="radio" :id="'on_' + key" :name="'preposition_' + key" value="on" v-model="answers[key]"
                             @change="correct(key)">
@@ -77,4 +68,5 @@ function clear() {
 
 .red {
     color: red;
-}</style>
+}
+</style>

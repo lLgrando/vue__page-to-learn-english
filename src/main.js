@@ -10,7 +10,6 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
-
 const vuetify = createVuetify({
   components,
   directives,
@@ -18,31 +17,49 @@ const vuetify = createVuetify({
   mdi
 })
 
-import Home from './components/Home.vue';
-import Numbers from './components/Numbers.vue';
-import IrregularVerbs from './components/IrregularVerbs.vue';
-import Time from './components/Time.vue';
-import AtInOn from './components/AtInOn.vue';
-import Weekday from './components/Weekday.vue';
-import Others from './components/Others.vue';
-import Past from './components/Past.vue';
-
 const routes = [
-    { path: '/', component: Home },
-    { path: '/irregularverbs', component: IrregularVerbs },
-    { path: '/numbers', component: Numbers },
-    { path: '/time', component: Time },
-    { path: '/atinon', component: AtInOn },
-    { path: '/weekday', component: Weekday },
-    { path: '/others', component: Others },
-    { path: '/past', component: Past },
+    { 
+      path: '/', 
+      component: import('./components/Home.vue')
+    },
+    { 
+      path: '/irregularverbs', 
+      component: import('./components/IrregularVerbs.vue') 
+    },
+    { 
+      path: '/numbers', 
+      component: import('./components/Numbers.vue') 
+    },
+    { 
+      path: '/time', 
+      component: import('./components/Time.vue') 
+    },
+    { 
+      path: '/atinon', 
+      component: import('./components/AtInOn.vue') 
+    },
+    { 
+      path: '/weekday', 
+      component: import('./components/Weekday.vue') 
+    },
+    { 
+      path: '/others', 
+      component: import('./components/Others.vue') 
+    },
+    { 
+      path: '/past', 
+      component: import('./components/Past.vue') 
+    },
+    {
+      path: '/contact',
+      component: import('./components/Contact.vue')
+    }
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes, 
   })
-
 
 const app = createApp(App)
 

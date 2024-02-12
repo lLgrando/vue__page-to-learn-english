@@ -2,18 +2,11 @@
 </script>
 
 <template>
-        <div class="bg-black p-6">
-            <ul class="flex flex-wrap justify-around items-center">
-                <li>
-                    <a href="" class="p-2">PRIVACY POLICY</a>
-                </li>
-                <li>
-                    <a href="" class="p-2">CONTACT</a>
-                </li>
-                <li>
-                    <a href="" class="p-2">ABOUT</a>
-                </li>
-            </ul>
-        </div>
+
+    <v-list class="flex flex-wrap justify-around items-center bg-black">
+        <v-list-item value="" to="">PRIVACY POLICY</v-list-item>
+        <v-list-item value="contact" to="/contact">CONTACT</v-list-item>
+        <v-list-item value="" to="">ABOUT</v-list-item>
+    </v-list>
    
 </template>
