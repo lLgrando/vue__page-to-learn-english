@@ -2,6 +2,8 @@
 import { onMounted, ref, watch, computed } from 'vue';
 import numbersList from '../../public/numbersList';
 import Title from '../components/global_component/Title.vue'
+import Info from '../components/global_component/Info.vue'
+
 
 const number = ref();
 const numberWrited = ref('');
@@ -82,6 +84,10 @@ function correction() {
 
 <template>
     <Title title="Write the numbers"></Title>
+    <Info info="Some number will be drawn and you need to write the name of that number. For example: twenty-four;
+    <br> You can choose a range of numbers to train. For example, numbers between 100 until to 300.
+    "></Info>
+
     <div class="main_div">
         <div class="div_number">
             <span>Select the numbers range:</span>
@@ -98,10 +104,6 @@ function correction() {
         <div class="div_inputs">
             <div>
                 <span>{{ itemsCompleted }} / {{ range_value[1] - range_value[0] + 1 }}</span>
-            </div>
-            <div v-if="numberUsed.length == 0">
-                <span>Write the number and press enter!</span>
-                <span>For example: one hundred seventy two...</span>
             </div>
         </div>
         <div>

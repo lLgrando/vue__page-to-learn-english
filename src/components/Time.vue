@@ -9,7 +9,6 @@ let times_record = ref([]);   // um array para guardar os obj. de times já util
 
 onMounted(() => {
     getItemFromTimeList();
-    console.log(timeList);
 })
 
 let reverseArray = computed(() => {

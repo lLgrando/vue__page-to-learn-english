@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import Title from './global_component/Title.vue';
+import Info from './global_component/Info.vue';
+
 
 const sentences = [
     { sentence: "I have a meeting _____ 9am.", answer: "at", isCorrect: ref(null) },
@@ -33,6 +35,7 @@ function clear() {
 <template>
     <div>
         <Title title="Complete with AT, IN or ON" />
+        <Info info="You need to choose one of the three options in each sentence. Read the sentence and try to answer."></Info>
 
         <div>
             <ul v-for="(item, key) in sentences" :key="key">

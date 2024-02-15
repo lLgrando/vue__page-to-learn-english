@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import Title from './global_component/Title.vue';
+import Info from './global_component/Info.vue';
 
 const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -26,6 +27,7 @@ function getWeekDayFromNumber(userAnswer, itemNumber) {
 
 <template>
     <Title title="What is the day?"></Title>
+    <Info info="Complete the empty box with the day of the week. For example: monday"></Info>
 
     <div class="w-full flex flex-col justify-center items-center">
         <ul v-for="item, index in questions"
