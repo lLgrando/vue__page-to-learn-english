@@ -20,39 +20,39 @@ const vuetify = createVuetify({
 const routes = [
     { 
       path: '/', 
-      component: import('./components/Home.vue')
+      component: () => import('./components/Home.vue')
     },
     { 
       path: '/irregularverbs', 
-      component: import('./components/IrregularVerbs.vue') 
+      component: () => import('./components/IrregularVerbs.vue') 
     },
     { 
       path: '/numbers', 
-      component: import('./components/Numbers.vue') 
+      component: () => import('./components/Numbers.vue') 
     },
     { 
       path: '/time', 
-      component: import('./components/Time.vue') 
+      component: () => import('./components/Time.vue') 
     },
     { 
       path: '/atinon', 
-      component: import('./components/AtInOn.vue') 
+      component: () => import('./components/AtInOn.vue') 
     },
     { 
       path: '/weekday', 
-      component: import('./components/Weekday.vue') 
+      component: () => import('./components/Weekday.vue') 
     },
     { 
       path: '/others', 
-      component: import('./components/Others.vue') 
+      component: () => import('./components/Others.vue') 
     },
     { 
       path: '/past', 
-      component: import('./components/Past.vue') 
+      component: () => import('./components/Past.vue') 
     },
     {
       path: '/contact',
-      component: import('./components/Contact.vue')
+      component: () => import('./components/Contact.vue')
     }
 ];
 
