@@ -1,3 +1,5 @@
+
+
 const irregularVerbsList = [
     { verb: 'cut', simple_past: 'cut', past_perfect: 'cut' },
     { verb: 'beat', simple_past: 'beat', past_perfect: 'beaten' },

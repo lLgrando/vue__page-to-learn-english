@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 import irregularVerbsList from '../../public/irregularVerbsList';
 import Title from './global_component/Title.vue';
+import Info from './global_component/Info.vue';
 
 const index = ref('');
 const verb = ref('');
@@ -104,6 +105,8 @@ function correct(verb, simple_past, past_perfect) {
 
 <template>
     <Title title="Irregular Verbs" />
+    <Info info="The base form of some verb will be displayed on screen. You need to complete with simple past and past perfect.
+    "></Info>
 
     <div class="flex justify-center items-center pt-8 w-full text-3xl">
         <div class="mx-10">
