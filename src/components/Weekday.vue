@@ -29,7 +29,7 @@ function getWeekDayFromNumber(userAnswer, itemNumber) {
     <Title title="What is the day?"></Title>
     <Info info="Complete the empty box with the day of the week. For example: monday"></Info>
 
-    <div class="w-full flex flex-col justify-center items-center">
+    <div class="w-full flex flex-col justify-center items-center pb-40">
         <ul v-for="item, index in questions"
             class="flex flex-col justify-center items-center border-b border-slate-500 w-full p-6">
             <li class="sm:text-2xl text-xl w-46">{{ item.question }}</li>

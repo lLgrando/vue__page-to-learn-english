@@ -64,7 +64,7 @@ function correction() {
     <br> Use: number past to ... | a quarter to ... | a half to ... | a quarter past ... | number to ...
     "></Info>
 
-    <div class=" h-screen flex flex-column jusitify-center align-center">
+    <div class="min-h-screen flex flex-column jusitify-center align-center pb-40">
     <div class="p-4 m-8 lg:p-7 w-96">
         <div class="flex flex-row justify-center align-center text-6xl tracking-wider lg:text-7xl">
             <span>{{ time_in_use.number }}</span>

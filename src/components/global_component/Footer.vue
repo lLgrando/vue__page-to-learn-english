@@ -3,7 +3,7 @@
 
 <template>
 
-    <div class="grid sm:grid-cols-3 grid-cols-1 justify-center items-top grid-wrap  bg-black opacity-75 text-white px-4 py-10 text-justify">
+    <div class="grid sm:grid-cols-3 grid-cols-1 justify-center items-top grid-wrap bg-black opacity-75 text-white px-4 py-10 text-justify">
         <div class="lg:border-r-4 border-slate-200 py-2 px-6">
             <p><strong>ABOUT</strong></p>
             <p>

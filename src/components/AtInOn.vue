@@ -39,7 +39,7 @@ function clear() {
         <Info info="You need to choose one of the three options in each sentence. Read the sentence and try to answer.">
         </Info>
 
-        <div class="flex flex-col justify-center items-center">
+        <div class="flex flex-col items-center min-h-screen pb-40">
             <div class="mx-4">
                 <div class="flex justify-center items-center py-6">
                     <button @click="clear()"

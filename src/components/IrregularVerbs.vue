@@ -124,8 +124,7 @@ function correct(verb, simple_past, past_perfect) {
         <input type="text" v-model.trim="past_perfect" class="border border-slate-400 rounded p-4 m-2 text-2xl w-56">
     </div>
 
-    <div class="border border-slate-300 m-2 flex flex-col justify-center items-center">
-
+    <div class="border border-slate-300 m-2 flex flex-col justify-center items-center pb-40">
         <div class="flex">
             <table v-for="item in verbCorrection">
                 <tr>

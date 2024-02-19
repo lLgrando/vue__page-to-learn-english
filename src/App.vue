@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import Sidebar from './components/global_component/Sidebar.vue'
 import Footer from './components/global_component/Footer.vue'
+import ToTopButton from './components/global_component/ToTopButton.vue'
 
 let drawer = ref(null);
 </script>
@@ -20,6 +21,7 @@ let drawer = ref(null);
           <span  class="material-symbols-outlined">menu</span>
         </v-btn>
         <router-view></router-view>
+        <ToTopButton></ToTopButton>
       </v-main>
     </v-layout>
     <Footer></Footer>
