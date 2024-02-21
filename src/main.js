@@ -53,6 +53,10 @@ const routes = [
     {
       path: '/contact',
       component: () => import('./components/Contact.vue')
+    },
+    {
+      path: '/alphabet',
+      component: () => import('./components/Alphabet.vue')
     }
 ];
 
