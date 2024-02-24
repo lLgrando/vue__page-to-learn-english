@@ -3,6 +3,8 @@ import { ref } from 'vue';
 import Title from './global_component/Title.vue';
 import Info from './global_component/Info.vue';
 
+document.title = 'Repeat English - Past';
+
 const sentences = [
     { sentence_1: "He (work)", sentence_2: "at Burguer King.", answer: "worked", result: null },
     { sentence_1: "Yesterday I (go)", sentence_2: "to the mall.", answer: "went", result: null },
@@ -42,11 +44,13 @@ function focusNextInput(index) {
 
 <template>
     <Title title="Past Tenses"></Title>
-    <Info
-        info="Fill the empty box with the verb in the past form. IT can be past simple, past continuous, past perfect and past perfect continuous.
-                <br> For example: Leo <strong>was playing</strong> the guitar when his mother called him.
-                <br> If ou have some doubt, click on the <strong>'?'</strong> sign in the left side of the answer to see the answer.
-                " />
+    <Info info="
+        <ul>
+            <li>• Fill the empty box with the verb in the past form. IT can be past simple, past continuous, past perfect and past perfect continuous.</li>
+            <li>• For example: Leo <strong>was playing</strong> the guitar when his mother called him.</li>
+            <li>• If ou have some doubt, click on the <strong>'?'</strong> sign in the left side of the answer to see the answer.</li>
+        </ul>
+    "/>
 
     <div class="flex justify-center items-center px-2 text-justify mx-1 pb-40">
         <div class="flex flex-col">

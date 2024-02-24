@@ -43,16 +43,8 @@ const routes = [
       component: () => import('./components/Weekday.vue') 
     },
     { 
-      path: '/others', 
-      component: () => import('./components/Others.vue') 
-    },
-    { 
       path: '/past', 
       component: () => import('./components/Past.vue') 
-    },
-    {
-      path: '/contact',
-      component: () => import('./components/Contact.vue')
     },
     {
       path: '/alphabet',

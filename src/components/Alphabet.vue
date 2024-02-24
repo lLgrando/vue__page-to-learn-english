@@ -3,6 +3,8 @@ import { ref } from 'vue';
 import Title from './global_component/Title.vue';
 import Info from './global_component/Info.vue';
 
+document.title = 'Repeat English - Alphabet';
+
 let alphabet = [
     { capitalLetter: 'a', smallLetter: 'A', name: 'ay', correction: null },
     { capitalLetter: 'b', smallLetter: 'B', name: 'bee', correction: null },
@@ -67,11 +69,12 @@ function clear() {
     <div>
         <Title title="Alphabet"></Title>
         <Info info="
-            Fill the empty box with the name of corresponding letter.
-            <br> Example: the name of letter <strong>A</strong> is <strong>ei</strong>.
-        ">
-        </Info>
-
+            <ul>
+              <li>• Fill the empty box with the name of corresponding letter.</li>
+              <li>• Example: the name of letter <strong>A</strong> is <strong>ei</strong>.</li>
+            </ul>
+        "/>
+        
         <div class="flex justify-center items-center py-6">
             <button @click="clear()"
                 class="flex px-7 py-2  rounded bg-indigo-100 hover:bg-indigo-200 font-semibold tracking-wide">Clear

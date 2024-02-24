@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 import Sidebar from './components/global_component/Sidebar.vue'
 import Footer from './components/global_component/Footer.vue'
 import ToTopButton from './components/global_component/ToTopButton.vue'
+
+document.title = 'Repeat English';
 
 let drawer = ref(null);
 </script>

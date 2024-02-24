@@ -4,6 +4,7 @@ import numbersList from '../../public/numbersList';
 import Title from '../components/global_component/Title.vue'
 import Info from '../components/global_component/Info.vue'
 
+document.title = 'Repeat English - Numbers';
 
 const number = ref();
 const numberWrited = ref('');
@@ -84,9 +85,12 @@ function correction() {
 
 <template>
     <Title title="Write the numbers"></Title>
-    <Info info="Some number will be drawn and you need to write the name of that number. For example: twenty-four;
-    <br> You can choose a range of numbers to train. For example, numbers between 100 until to 300.
-    "></Info>
+    <Info info="
+    <ul>
+        <li>• Some number will be drawn and you need to write the name of that number. For example: twenty-four;</li>
+        <li>• You can choose a range of numbers to train. For example, numbers between 100 until to 300.</li>
+    </ul>
+    "/>
 
     <div class="main_div">
         <div class="div_number">

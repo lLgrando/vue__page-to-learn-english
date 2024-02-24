@@ -4,6 +4,8 @@ import timeList from '../../public/timesList';
 import Title from './global_component/Title.vue'
 import Info from './global_component/Info.vue'
 
+document.title = 'Repeat English - Time';
+
 let time_input = ref('');   // guarda o input do usuário
 let time_in_use = ref([]);   // guarda qual obj. de time está sendo utilizado nesse momento
 let times_record = ref([]);   // um array para guardar os obj. de times já utilizados, contendo a resposta do user junto
@@ -59,10 +61,13 @@ function correction() {
 
 <template>
     <Title title="Could you tell me the time?"></Title>
-    <Info info="Write what time appears on the screen. For example, twenty past two (2:20)
-    <br> Write the text and press enter.
-    <br> Use: number past to ... | a quarter to ... | a half to ... | a quarter past ... | number to ...
-    "></Info>
+    <Info info="
+        <ul>
+            <li>• Write what time appears on the screen. For example, twenty past two (2:20);</li>
+            <li>• Write the text and press enter;</li>
+            <li>• Use: number past to ... | a quarter to ... | a half to ... | a quarter past ... | number to ...</li>
+        </ul>
+    "/>
 
     <div class="min-h-screen flex flex-column jusitify-center align-center pb-40">
     <div class="p-4 m-8 lg:p-7 w-96">

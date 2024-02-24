@@ -1,7 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, getCurrentInstance  } from 'vue';
 import Title from './global_component/Title.vue';
 import Info from './global_component/Info.vue';
+import { watch } from 'vue';
+
+document.title = 'Repeat English - At In On';
 
 const sentences = [
     { sentence_1: "I have a meeting", sentence_2: "9am.", answer: "at", isCorrect: null },
@@ -16,28 +19,38 @@ const sentences = [
 
 let selected = ref([]);
 
+
 function check(index) {
     const userAnswer = selected.value[index];
     const correctAnswer = sentences[index].answer;
     userAnswer === correctAnswer ? sentences[index].isCorrect = true : sentences[index].isCorrect = false;
-    selected.value[index + 1] = '';
+    selected.value.push('');
     selected.value.pop();
+
 }
 
 function clear() {
     sentences.forEach(element => {
         element.isCorrect = null;
     });
-    selected.value = '';
+    selected.value = [];
 }
+
+watch(selected, () => {
+    // Aqui você pode colocar o código que deseja executar sempre que o valor de 'selected' mudar
+    console.log("Inputs mudaram:", selected.value);
+});
 
 </script>
 
 <template>
     <div>
         <Title title="Complete with AT, IN or ON" />
-        <Info info="You need to choose one of the three options in each sentence. Read the sentence and try to answer.">
-        </Info>
+        <Info info="
+            <ul>
+                <li>• You need to choose one of the three options in each sentence. Read the sentence and try to answer.</li>
+            </ul>
+        "/>
 
         <div class="flex flex-col items-center min-h-screen pb-40">
             <div class="mx-4">
@@ -46,8 +59,8 @@ function clear() {
                         class="px-4 py-1 border border-slate-100 rounded bg-indigo-100 hover:bg-indigo-200">Clear</button>
                 </div>
 
-                <ul v-for="item, index in sentences" class="flex py-5 text-lg">
-                    <li class="text-justify">
+                <ul v-for="item, index in sentences" class="flex py-5 text-lg" :key="index">
+                    <li class="text-justify" :key="index">
                         <span> <strong>{{ index + 1 }}</strong> - {{ item.sentence_1 }}</span>
                         <select class="mx-3 w-16 border text-center border-slate-100 rounded" v-model="selected[index]"
                             @change="check(index)" :id="item.isCorrect">
