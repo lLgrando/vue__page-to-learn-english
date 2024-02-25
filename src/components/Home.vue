@@ -11,7 +11,7 @@ document.title = 'Repeat English - English exercices';
                 <img src="../../public/image/logo.svg" alt="logo" class="w-36 color-indigo-100" width="144px" height="144px">
             </div>
             <div>
-                <h1 class="font-sans text-5xl font-extrabold pt-12 pb-16 text-center text-clip text-wrap">Free exercices to improve your english!</h1>
+                <h1 class="font-sans text-5xl font-bold pt-12 pb-16 text-center text-clip text-wrap">Free exercices to improve your english!</h1>
             </div>
             <div class="font-sans text-4xl text-center ">
                 <ul class="flex justify-center flex-wrap gap-6 w-89">

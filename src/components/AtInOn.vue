@@ -1,12 +1,11 @@
 <script setup>
-import { ref, getCurrentInstance  } from 'vue';
+import { ref } from 'vue';
 import Title from './global_component/Title.vue';
 import Info from './global_component/Info.vue';
-import { watch } from 'vue';
 
 document.title = 'Repeat English - At In On';
 
-const sentences = [
+let sentences = ref ([
     { sentence_1: "I have a meeting", sentence_2: "9am.", answer: "at", isCorrect: null },
     { sentence_1: "Do you think we will go to Jupiter", sentence_2: "the future?", answer: "in", isCorrect: null },
     { sentence_1: "Her birthday is", sentence_2: "the 20th of November.", answer: "on", isCorrect: null },
@@ -15,31 +14,22 @@ const sentences = [
     { sentence_1: "There should be a lot of progress", sentence_2: "the next century.", answer: "in", isCorrect: null },
     { sentence_1: "Do you work", sentence_2: "Mondays?", answer: "on", isCorrect: null },
     { sentence_1: "Jane went home", sentence_2: "lunchtime.", answer: "at", isCorrect: null },
-]
+])
 
 let selected = ref([]);
 
-
 function check(index) {
     const userAnswer = selected.value[index];
-    const correctAnswer = sentences[index].answer;
-    userAnswer === correctAnswer ? sentences[index].isCorrect = true : sentences[index].isCorrect = false;
-    selected.value.push('');
-    selected.value.pop();
-
+    const correctAnswer = sentences.value[index].answer;
+    userAnswer === correctAnswer ? sentences.value[index].isCorrect = true : sentences.value[index].isCorrect = false;
 }
 
 function clear() {
-    sentences.forEach(element => {
+    sentences.value.forEach(element => {
         element.isCorrect = null;
     });
     selected.value = [];
 }
-
-watch(selected, () => {
-    // Aqui você pode colocar o código que deseja executar sempre que o valor de 'selected' mudar
-    console.log("Inputs mudaram:", selected.value);
-});
 
 </script>
 
@@ -59,8 +49,8 @@ watch(selected, () => {
                         class="px-4 py-1 border border-slate-100 rounded bg-indigo-100 hover:bg-indigo-200">Clear</button>
                 </div>
 
-                <ul v-for="item, index in sentences" class="flex py-5 text-lg" :key="index">
-                    <li class="text-justify" :key="index">
+                <ul v-for="item, index in sentences" :key="index" class="flex py-5 text-lg">
+                    <li class="text-justify">
                         <span> <strong>{{ index + 1 }}</strong> - {{ item.sentence_1 }}</span>
                         <select class="mx-3 w-16 border text-center border-slate-100 rounded" v-model="selected[index]"
                             @change="check(index)" :id="item.isCorrect">

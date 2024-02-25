@@ -63,8 +63,7 @@ function correction() {
     <Title title="Could you tell me the time?"></Title>
     <Info info="
         <ul>
-            <li>• Write what time appears on the screen. For example, twenty past two (2:20);</li>
-            <li>• Write the text and press enter;</li>
+            <li>• Write what time appears on the screen and press enter. For example, twenty past two (2:20);</li>
             <li>• Use: number past to ... | a quarter to ... | a half to ... | a quarter past ... | number to ...</li>
         </ul>
     "/>

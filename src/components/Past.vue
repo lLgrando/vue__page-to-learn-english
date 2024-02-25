@@ -5,7 +5,7 @@ import Info from './global_component/Info.vue';
 
 document.title = 'Repeat English - Past';
 
-const sentences = [
+let sentences = ref([
     { sentence_1: "He (work)", sentence_2: "at Burguer King.", answer: "worked", result: null },
     { sentence_1: "Yesterday I (go)", sentence_2: "to the mall.", answer: "went", result: null },
     { sentence_1: "We (watch)", sentence_2: "a movie last Sunday morning.", answer: "watched", result: null },
@@ -21,16 +21,14 @@ const sentences = [
     { sentence_1: "I (wait)", sentence_2: "for twenty minutes before the train came.", answer: "had been waiting", result: null },
     { sentence_1: "My father (die)", sentence_2: "last year.", answer: "died", result: null },
     { sentence_1: "I (climb)", sentence_2: "up the huge mountain.", answer: "climbed", result: null },
-]
+])
 
 let userAnswer = ref([]);
 
 function check(value, index) {
     let valueToLowerCase = userAnswer.value[index].toLowerCase()
-    value === valueToLowerCase ? sentences[index].result = true : sentences[index].result = false;
-    userAnswer.value[index + 1] = '';
-    userAnswer.value.pop();
-    if (value === valueToLowerCase || valueToLowerCase === sentences[index].answer) {
+    value === valueToLowerCase ? sentences.value[index].result = true : sentences.value[index].result = false;
+    if (value === valueToLowerCase || valueToLowerCase === sentences.value[index].answer) {
         focusNextInput(index);
     }
 }
@@ -46,7 +44,7 @@ function focusNextInput(index) {
     <Title title="Past Tenses"></Title>
     <Info info="
         <ul>
-            <li>• Fill the empty box with the verb in the past form. IT can be past simple, past continuous, past perfect and past perfect continuous.</li>
+            <li>• Fill the empty box with the verb in the past form. It can be past simple, past continuous, past perfect and past perfect continuous.</li>
             <li>• For example: Leo <strong>was playing</strong> the guitar when his mother called him.</li>
             <li>• If ou have some doubt, click on the <strong>'?'</strong> sign in the left side of the answer to see the answer.</li>
         </ul>
@@ -54,7 +52,7 @@ function focusNextInput(index) {
 
     <div class="flex justify-center items-center px-2 text-justify mx-1 pb-40">
         <div class="flex flex-col">
-            <ul v-for="item, index in sentences" class="flex items-center lg:px-20">
+            <ul v-for="item, index in sentences" :key="index" class="flex items-center lg:px-20">
                 <span class="bg-yellow-50 rounded m-4 p-1 min-w-7" :title="item.answer">
                     <img src="../../public/image/question.svg" alt="wrong answer" style="height: 16px;">
                     <v-overlay activator="parent" location-strategy="connected" scroll-strategy="close">

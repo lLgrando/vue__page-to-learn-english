@@ -6,12 +6,12 @@ import Info from './global_component/Info.vue';
 document.title = 'Repeat English - Alphabet';
 
 let alphabet = [
-    { capitalLetter: 'a', smallLetter: 'A', name: 'ay', correction: null },
+    { capitalLetter: 'a', smallLetter: 'A', name: 'a', correction: null },
     { capitalLetter: 'b', smallLetter: 'B', name: 'bee', correction: null },
     { capitalLetter: 'c', smallLetter: 'C', name: 'cee', correction: null },
     { capitalLetter: 'd', smallLetter: 'D', name: 'dee', correction: null },
-    { capitalLetter: 'e', smallLetter: 'E', name: 'ee', correction: null },
-    { capitalLetter: 'f', smallLetter: 'F', name: 'eff', correction: null },
+    { capitalLetter: 'e', smallLetter: 'E', name: 'e', correction: null },
+    { capitalLetter: 'f', smallLetter: 'F', name: 'ef', correction: null },
     { capitalLetter: 'g', smallLetter: 'G', name: 'gee', correction: null },
     { capitalLetter: 'h', smallLetter: 'H', name: 'haitch', correction: null },
     { capitalLetter: 'i', smallLetter: 'I', name: 'i', correction: null },
